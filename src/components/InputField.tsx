@@ -1,21 +1,24 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import './styles.css';
 
 interface Props {
   todo: string;
   setTodo: React.Dispatch<React.SetStateAction<string>>;
-  handleAdd: () => void;
+  handleAdd: (e: React.FormEvent) => void;
 }
 
 const InputField = ({todo, setTodo, handleAdd}:Props) => {
+  const inputRef = useRef(null);
+  
   return (
-    <form className='input' onSubmit={handleAdd}>
-        <input type='input'
+    <form className='input' onSubmit={(e) => handleAdd(e)}>
+        <input
+          ref={inputRef} 
+          type='input'
           value={todo}
-          onChange={
-            (e)=>setTodo(e.target.value) /*e=event*/
-          }
-          placeholder='Enter a task' className='input__box' />
+          onChange={(e)=>setTodo(e.target.value) /*e=event*/}
+          placeholder='Enter a task' className='input__box' 
+        />
         <button className='input__submit' type='submit'>
             Go
         </button>
