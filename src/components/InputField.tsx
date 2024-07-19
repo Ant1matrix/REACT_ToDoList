@@ -8,10 +8,14 @@ interface Props {
 }
 
 const InputField = ({todo, setTodo, handleAdd}:Props) => {
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   
   return (
-    <form className='input' onSubmit={(e) => handleAdd(e)}>
+    <form className='input' 
+      onSubmit={(e) => {
+        handleAdd(e);
+        inputRef.current?.blur();
+        }}>
         <input
           ref={inputRef} 
           type='input'
