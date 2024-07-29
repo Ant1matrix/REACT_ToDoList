@@ -53,3 +53,50 @@
     flex-wrap: wrap;
     color: #F8F9F9;
 }
+
+.TaskCard__single {
+    display: flex;
+    width: 29.5%;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 15px;
+    border: 1px solid #F8F9F9;
+    align-items: center;
+}
+
+.TaskCard__single--text {
+    flex: 1;
+    padding: 5px;
+    border: none;
+    font-size: 20px;
+}
+
+.TaskCard__single--text:focus{
+    outline: none;
+}
+
+.icon {
+    margin-left: 10px;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+@media (max-width: 700px) {
+    .input {
+        width: 95%;
+    }
+
+    .todos {
+        width: 95%;
+    }
+
+    .TaskCard__single {
+        width: 100%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .TaskCard__single {
+        width: 40%;
+    }
+}
