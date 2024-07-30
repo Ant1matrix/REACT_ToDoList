@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Todo } from '../model';
 import {AiFillEdit, AiFillDelete} from 'react-icons/ai';
 import {MdDone} from 'react-icons/md';
@@ -13,6 +13,9 @@ type Props = {
 
 const TaskCard = ({todo, todos, setTodos}:Props) => {
 
+  const [edit, setEdit] = useState<boolean>(false);
+  const [editText, setEditText] = useState(todo.todo);
+
   const handleDone = (id:number) => {
     setTodos(
       todos.map((todo)=> 
@@ -26,20 +29,35 @@ const TaskCard = ({todo, todos, setTodos}:Props) => {
   };
 
   return (
-    <form className='TaskCard__single'>
-      {todo.isDone ? (
-          <s className="TaskCard__single--text">{todo.todo}</s>
-        ) : (
-          <span className="TaskCard__single--text">{todo.todo}</span>
-        )}
+    <form className="TaskCard__single">
+      {edit ? (
+        <input value={editText} onChange={(e) => setEditText(e.target.value)} className='editText__box'/>
+      ) : todo.isDone ? (
+        <s className="TaskCard__single--text">{todo.todo}</s>
+      ) : (
+        <span className="TaskCard__single--text">{todo.todo}</span>
+      )}
 
       <div>
-        <span className="icon"><AiFillEdit /></span>
-        <span className="icon" onClick={()=>handleDelete(todo.id)}><AiFillDelete /></span>
-        <span className="icon" onClick={()=>handleDone(todo.id)}><MdDone /></span>
+        <span
+          className="icon"
+          onClick={() => {
+            if (!edit && !todo.isDone) {
+              setEdit(!edit);
+            }
+          }}
+        >
+          <AiFillEdit />
+        </span>
+        <span className="icon" onClick={() => handleDelete(todo.id)}>
+          <AiFillDelete />
+        </span>
+        <span className="icon" onClick={() => handleDone(todo.id)}>
+          <MdDone />
+        </span>
       </div>
     </form>
-  )
+  );
 };
 
 export default TaskCard;
